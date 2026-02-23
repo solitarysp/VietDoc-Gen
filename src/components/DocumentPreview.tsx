@@ -76,7 +76,8 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
 
   return (
     <div 
-      ref={ref} 
+      ref={ref}
+      data-export-preview="true"
       className={`bg-white text-black shadow-lg mx-auto relative ${styles.container}`}
       style={{ 
         width: '210mm', 
@@ -427,14 +428,20 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
               <div className="relative h-48 w-full flex justify-center items-center">
                  {/* Signature - Placed first */}
                  {data.showSignature && (
-                   <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 font-signature text-blue-900 text-5xl z-10 whitespace-nowrap" style={{ transform: 'translate(-50%, 0) rotate(-5deg)' }}>
+                   <div
+                     className="absolute bottom-12 left-1/2 transform -translate-x-1/2 font-signature text-5xl z-10 whitespace-nowrap"
+                     style={{ transform: 'translate(-50%, 0) rotate(-5deg)', color: '#1e3a8a' }}
+                   >
                       {data.signerName.split(' ').pop()}
                    </div>
                  )}
 
                  {/* Seal - Overlapping left side of signature */}
                  {data.showSeal && (
-                    <div className="absolute -top-4 left-1/2 transform -translate-x-[65%] text-red-600 opacity-90 mix-blend-multiply z-20 pointer-events-none">
+                    <div
+                      className="absolute -top-4 left-1/2 transform -translate-x-[65%] opacity-90 mix-blend-multiply z-20 pointer-events-none"
+                      style={{ color: '#dc2626' }}
+                    >
                       <svg width="170" height="170" viewBox="0 0 170 170" className="rotate-[-15deg]">
                         <defs>
                           <path id="curve-top" d="M 27, 85 A 58, 58 0 1, 1 143, 85" fill="none" />
@@ -475,7 +482,10 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
                         {/* Center Text: Company Name */}
                         <foreignObject x="40" y="40" width="90" height="90">
                           <div className="w-full h-full flex items-center justify-center text-center px-1">
-                            <p className="text-red-600 font-bold uppercase text-[11px] leading-tight font-serif" style={{ wordBreak: 'break-word', fontFamily: '"Times New Roman", serif' }}>
+                            <p
+                              className="font-bold uppercase text-[11px] leading-tight font-serif"
+                              style={{ wordBreak: 'break-word', fontFamily: '"Times New Roman", serif', color: '#dc2626' }}
+                            >
                               {data.companyName}
                             </p>
                           </div>
@@ -497,14 +507,20 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
               <div className="relative h-48 w-full flex justify-center items-center">
                  {/* Signature */}
                  {data.showSignature && (
-                   <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 font-signature text-blue-900 text-5xl z-10 whitespace-nowrap" style={{ transform: 'translate(-50%, 0) rotate(-5deg)' }}>
+                   <div
+                     className="absolute bottom-12 left-1/2 transform -translate-x-1/2 font-signature text-5xl z-10 whitespace-nowrap"
+                     style={{ transform: 'translate(-50%, 0) rotate(-5deg)', color: '#1e3a8a' }}
+                   >
                       {data.signerName.split(' ').pop()}
                    </div>
                  )}
 
                  {/* Seal */}
                  {data.showSeal && (
-                    <div className="absolute -top-4 left-1/2 transform -translate-x-[65%] text-red-600 opacity-90 mix-blend-multiply z-20 pointer-events-none">
+                    <div
+                      className="absolute -top-4 left-1/2 transform -translate-x-[65%] opacity-90 mix-blend-multiply z-20 pointer-events-none"
+                      style={{ color: '#dc2626' }}
+                    >
                       <svg width="170" height="170" viewBox="0 0 170 170" className="rotate-[-15deg]">
                         <defs>
                           <path id="curve-top-2" d="M 27, 85 A 58, 58 0 1, 1 143, 85" fill="none" />
@@ -545,7 +561,10 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
                         {/* Center Text: Company Name */}
                         <foreignObject x="40" y="40" width="90" height="90">
                           <div className="w-full h-full flex items-center justify-center text-center px-1">
-                            <p className="text-red-600 font-bold uppercase text-[11px] leading-tight font-serif" style={{ wordBreak: 'break-word', fontFamily: '"Times New Roman", serif' }}>
+                            <p
+                              className="font-bold uppercase text-[11px] leading-tight font-serif"
+                              style={{ wordBreak: 'break-word', fontFamily: '"Times New Roman", serif', color: '#dc2626' }}
+                            >
                               {data.companyName}
                             </p>
                           </div>
@@ -562,7 +581,7 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
       </div>
       
       {/* Footer Note */}
-      <div className="absolute bottom-12 left-12 text-xs italic text-gray-400">
+      <div className="absolute bottom-12 left-12 text-xs italic" style={{ color: '#9ca3af' }}>
         * Văn bản được tạo tự động từ hệ thống VietDoc Gen.
       </div>
     </div>

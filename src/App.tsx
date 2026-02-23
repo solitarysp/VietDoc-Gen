@@ -10,6 +10,25 @@ function App() {
   const previewRef = useRef<HTMLDivElement>(null);
   const [isExporting, setIsExporting] = useState(false);
 
+  const capturePreview = async () => {
+    if (!previewRef.current) return null;
+    if (document.fonts?.ready) {
+      await document.fonts.ready;
+    }
+    return html2canvas(previewRef.current, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: '#ffffff',
+      onclone: (clonedDoc) => {
+        const clonedPreview = clonedDoc.querySelector('[data-export-preview="true"]') as HTMLElement | null;
+        if (clonedPreview?.parentElement) {
+          clonedPreview.parentElement.style.transform = 'none';
+          clonedPreview.parentElement.style.transformOrigin = 'top left';
+        }
+      }
+    });
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setData(prev => ({ ...prev, [name]: value }));
@@ -30,12 +49,18 @@ function App() {
     if (!previewRef.current) return;
     setIsExporting(true);
     try {
-      const canvas = await html2canvas(previewRef.current, { scale: 2, useCORS: true });
-      const image = canvas.toDataURL('image/png');
+      const canvas = await capturePreview();
+      if (!canvas) return;
+      const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/png'));
+      if (!blob) throw new Error('Không thể tạo ảnh.');
+      const imageUrl = URL.createObjectURL(blob);
       const link = document.createElement('a');
-      link.href = image;
+      link.href = imageUrl;
       link.download = `${data.type}-${Date.now()}.png`;
+      document.body.appendChild(link);
       link.click();
+      link.remove();
+      URL.revokeObjectURL(imageUrl);
     } catch (error) {
       console.error('Export failed', error);
     } finally {
@@ -47,14 +72,19 @@ function App() {
     if (!previewRef.current) return;
     setIsExporting(true);
     try {
-      const canvas = await html2canvas(previewRef.current, { scale: 2, useCORS: true });
+      const canvas = await capturePreview();
+      if (!canvas) return;
       const imgData = canvas.toDataURL('image/png');
-      
-      const pdf = new jsPDF('p', 'mm', 'a4');
+
+      const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
-      
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      const imgProps = pdf.getImageProperties(imgData);
+      const imgWidth = pdfWidth;
+      const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
+      const offsetY = imgHeight < pdfHeight ? (pdfHeight - imgHeight) / 2 : 0;
+
+      pdf.addImage(imgData, 'PNG', 0, offsetY, imgWidth, Math.min(imgHeight, pdfHeight));
       pdf.save(`${data.type}-${Date.now()}.pdf`);
     } catch (error) {
       console.error('Export failed', error);
