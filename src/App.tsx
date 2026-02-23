@@ -196,7 +196,7 @@ function App() {
               Chọn mẫu (Format)
             </h3>
             <div className="grid grid-cols-5 gap-2">
-              {[1, 2, 3, 4, 5].map((id) => (
+              {Array.from({ length: 25 }, (_, index) => index + 1).map((id) => (
                 <button
                   key={id}
                   onClick={() => setData(prev => ({ ...prev, formatId: id }))}

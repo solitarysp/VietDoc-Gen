@@ -13,62 +13,229 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
 
   // Format Styles Configuration
   const getFormatStyles = (id: number) => {
+    const base = {
+      container: 'font-serif text-[11pt] leading-relaxed p-12',
+      header: 'flex justify-between items-start mb-8',
+      companyAlign: 'text-center',
+      mottoAlign: 'text-center',
+      titleAlign: 'text-center',
+      fontFamily: '"Times New Roman", serif',
+      headerTitleClass: 'font-bold text-[11pt]',
+      headerSubtitleClass: 'font-bold text-[12pt]',
+      companyWidthClass: 'w-5/12',
+      mottoWidthClass: 'w-6/12',
+      titleClass: 'font-bold text-2xl',
+      headerSubtitleBorderClass: 'border-b border-black'
+    };
+
     switch (id) {
       case 2: // Bordered
         return {
-          container: 'font-serif text-[11pt] leading-relaxed border-4 border-double border-black p-16',
-          header: 'flex justify-between items-start mb-8',
-          companyAlign: 'text-center',
-          mottoAlign: 'text-center',
-          titleAlign: 'text-center',
-          fontFamily: '"Times New Roman", serif',
-          headerTitleClass: 'font-bold text-[11pt]',
-          headerSubtitleClass: 'font-bold text-[12pt]'
+          ...base,
+          container: 'font-serif text-[11pt] leading-relaxed border-4 border-double border-black p-16'
         };
       case 3: // Modern Sans
         return {
+          ...base,
           container: 'font-sans text-[10pt] leading-relaxed p-12',
           header: 'flex justify-between items-start mb-10 border-b-2 border-gray-800 pb-4',
           companyAlign: 'text-left',
           mottoAlign: 'text-right',
           titleAlign: 'text-left',
           fontFamily: 'Arial, Helvetica, sans-serif',
-          headerTitleClass: 'font-bold text-[11pt]',
           headerSubtitleClass: 'font-bold text-[11pt]'
         };
       case 4: // Classic Centered
         return {
+          ...base,
           container: 'font-serif text-[12pt] leading-loose p-12',
           header: 'flex flex-col items-center mb-8 gap-4',
-          companyAlign: 'text-center w-full',
-          mottoAlign: 'text-center w-full',
-          titleAlign: 'text-center',
-          fontFamily: '"Times New Roman", serif',
+          companyAlign: 'text-center',
+          mottoAlign: 'text-center',
+          companyWidthClass: 'w-full',
+          mottoWidthClass: 'w-full',
           headerTitleClass: 'font-bold text-[13pt]',
           headerSubtitleClass: 'font-bold text-[13pt]'
         };
       case 5: // Bold / Heavy
         return {
-          container: 'font-serif text-[11pt] leading-relaxed p-12',
-          header: 'flex justify-between items-start mb-8',
+          ...base,
           companyAlign: 'text-center font-black',
           mottoAlign: 'text-center font-black',
           titleAlign: 'text-center uppercase tracking-widest',
-          fontFamily: '"Times New Roman", serif',
           headerTitleClass: 'font-black text-[12pt]',
-          headerSubtitleClass: 'font-black text-[12pt]'
+          headerSubtitleClass: 'font-black text-[12pt]',
+          titleClass: 'font-black text-3xl',
+          headerSubtitleBorderClass: 'border-b-2 border-black'
+        };
+      case 6: // Thin Border
+        return {
+          ...base,
+          container: 'font-serif text-[11pt] leading-relaxed border border-gray-500 p-12',
+          header: 'flex justify-between items-start mb-7',
+          headerSubtitleClass: 'font-semibold text-[12pt]'
+        };
+      case 7: // Wide Margin
+        return {
+          ...base,
+          container: 'font-serif text-[11pt] leading-relaxed p-16',
+          header: 'flex justify-between items-start mb-10',
+          companyAlign: 'text-left',
+          mottoAlign: 'text-right',
+          headerTitleClass: 'font-semibold text-[11pt]'
+        };
+      case 8: // Compact
+        return {
+          ...base,
+          container: 'font-serif text-[10pt] leading-snug p-10',
+          header: 'flex justify-between items-start mb-6',
+          headerTitleClass: 'font-bold text-[10pt]',
+          headerSubtitleClass: 'font-bold text-[11pt]',
+          titleClass: 'font-bold text-xl'
+        };
+      case 9: // Large Title
+        return {
+          ...base,
+          header: 'flex justify-between items-start mb-6',
+          titleClass: 'font-bold text-3xl'
+        };
+      case 10: // Serif Centered Header
+        return {
+          ...base,
+          container: 'font-serif text-[11pt] leading-relaxed p-12 border-t-2 border-b-2 border-black',
+          headerTitleClass: 'font-semibold text-[11pt]'
+        };
+      case 11: // Modern Sans Light
+        return {
+          ...base,
+          container: 'font-sans text-[10pt] leading-relaxed p-12',
+          header: 'flex justify-between items-start mb-8 border-b border-gray-700 pb-3',
+          companyAlign: 'text-left',
+          mottoAlign: 'text-right',
+          titleAlign: 'text-left',
+          fontFamily: '"Helvetica Neue", Arial, sans-serif',
+          headerTitleClass: 'font-semibold text-[11pt]',
+          headerSubtitleClass: 'font-bold text-[11pt]',
+          titleClass: 'font-semibold text-2xl'
+        };
+      case 12: // Modern Sans Bold
+        return {
+          ...base,
+          container: 'font-sans text-[10pt] leading-relaxed p-12 border border-gray-300',
+          companyAlign: 'text-left font-semibold',
+          mottoAlign: 'text-right font-semibold',
+          titleAlign: 'text-left',
+          fontFamily: '"Segoe UI", Arial, sans-serif',
+          headerSubtitleClass: 'font-bold text-[11pt]',
+          titleClass: 'font-bold text-2xl'
+        };
+      case 13: // Tall Header
+        return {
+          ...base,
+          header: 'flex justify-between items-start mb-10',
+          headerTitleClass: 'font-bold text-[12pt]',
+          headerSubtitleClass: 'font-bold text-[13pt]'
+        };
+      case 14: // Left Title Emphasis
+        return {
+          ...base,
+          companyAlign: 'text-left',
+          mottoAlign: 'text-right',
+          titleAlign: 'text-left',
+          headerTitleClass: 'font-semibold text-[11pt]',
+          headerSubtitleClass: 'font-semibold text-[12pt]'
+        };
+      case 15: // Uppercase Header
+        return {
+          ...base,
+          header: 'flex justify-between items-start mb-7',
+          companyAlign: 'text-center uppercase tracking-wide',
+          mottoAlign: 'text-center uppercase tracking-wide',
+          titleAlign: 'text-center uppercase'
+        };
+      case 16: // Soft Gray
+        return {
+          ...base,
+          container: 'font-serif text-[11pt] leading-relaxed p-12 border border-gray-200',
+          companyAlign: 'text-center text-gray-700',
+          mottoAlign: 'text-center text-gray-700',
+          headerTitleClass: 'font-semibold text-[11pt]',
+          headerSubtitleClass: 'font-semibold text-[12pt]'
+        };
+      case 17: // Formal Serif
+        return {
+          ...base,
+          container: 'font-serif text-[12pt] leading-relaxed p-12',
+          fontFamily: '"Georgia", "Times New Roman", serif',
+          headerTitleClass: 'font-bold text-[12pt]',
+          headerSubtitleClass: 'font-bold text-[13pt]'
+        };
+      case 18: // Classic Border
+        return {
+          ...base,
+          container: 'font-serif text-[11pt] leading-relaxed p-12 border-2 border-black'
+        };
+      case 19: // Double Bottom Header
+        return {
+          ...base,
+          header: 'flex justify-between items-start mb-8 border-b-2 border-double border-black pb-2',
+          headerTitleClass: 'font-semibold text-[11pt]'
+        };
+      case 20: // Tall Spacing
+        return {
+          ...base,
+          container: 'font-serif text-[11pt] leading-loose p-12',
+          header: 'flex justify-between items-start mb-10',
+          headerTitleClass: 'font-semibold text-[11pt]',
+          headerSubtitleClass: 'font-semibold text-[12pt]'
+        };
+      case 21: // Compact Sans
+        return {
+          ...base,
+          container: 'font-sans text-[10pt] leading-snug p-10',
+          header: 'flex justify-between items-start mb-6',
+          companyAlign: 'text-left',
+          mottoAlign: 'text-right',
+          titleAlign: 'text-left',
+          fontFamily: '"Tahoma", "Verdana", sans-serif',
+          headerTitleClass: 'font-semibold text-[10pt]',
+          headerSubtitleClass: 'font-bold text-[11pt]',
+          titleClass: 'font-semibold text-xl'
+        };
+      case 22: // Formal Outline
+        return {
+          ...base,
+          container: 'font-serif text-[11pt] leading-relaxed p-12 border border-black',
+          companyAlign: 'text-left',
+          mottoAlign: 'text-right',
+          headerTitleClass: 'font-semibold text-[11pt]',
+          headerSubtitleClass: 'font-semibold text-[12pt]'
+        };
+      case 23: // Condensed Title
+        return {
+          ...base,
+          header: 'flex justify-between items-start mb-7',
+          titleAlign: 'text-center tracking-wide',
+          headerTitleClass: 'font-semibold text-[11pt]'
+        };
+      case 24: // Left Header, Center Title
+        return {
+          ...base,
+          companyAlign: 'text-left',
+          mottoAlign: 'text-right',
+          headerTitleClass: 'font-semibold text-[11pt]'
+        };
+      case 25: // Compact Border
+        return {
+          ...base,
+          container: 'font-serif text-[10pt] leading-relaxed p-10 border border-gray-400',
+          header: 'flex justify-between items-start mb-6',
+          headerTitleClass: 'font-semibold text-[10pt]',
+          headerSubtitleClass: 'font-semibold text-[11pt]',
+          titleClass: 'font-semibold text-xl'
         };
       default: // Standard (Format 1)
-        return {
-          container: 'font-serif text-[11pt] leading-relaxed p-12',
-          header: 'flex justify-between items-start mb-8',
-          companyAlign: 'text-center',
-          mottoAlign: 'text-center',
-          titleAlign: 'text-center',
-          fontFamily: '"Times New Roman", serif',
-          headerTitleClass: 'font-bold text-[11pt]',
-          headerSubtitleClass: 'font-bold text-[12pt]'
-        };
+        return base;
     }
   };
 
@@ -88,21 +255,23 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
     >
       {/* Header */}
       <div className={styles.header}>
-        <div className={`${styles.companyAlign} ${formatId === 4 ? 'w-full' : 'w-5/12'}`}>
+        <div className={`${styles.companyAlign} ${styles.companyWidthClass}`}>
           <div className={`uppercase ${styles.headerTitleClass}`}>{data.companyName}</div>
           <div className={`uppercase ${styles.headerTitleClass} border-b border-black pb-1 inline-block mb-1`}>{data.department}</div>
           <div className="italic text-[11pt]">Số: {data.documentNumber}</div>
         </div>
-        <div className={`${styles.mottoAlign} ${formatId === 4 ? 'w-full' : 'w-6/12'}`}>
+        <div className={`${styles.mottoAlign} ${styles.mottoWidthClass}`}>
           <div className={`uppercase ${styles.headerTitleClass}`}>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</div>
-          <div className={`${styles.headerSubtitleClass} border-b border-black pb-1 inline-block mb-1 ${formatId === 5 ? 'border-b-2' : ''}`}>Độc lập - Tự do - Hạnh phúc</div>
+          <div className={`${styles.headerSubtitleClass} ${styles.headerSubtitleBorderClass} pb-1 inline-block mb-1`}>
+            Độc lập - Tự do - Hạnh phúc
+          </div>
           <div className="italic text-[11pt] mt-1">{data.location}, {formattedDate}</div>
         </div>
       </div>
 
       {/* Title */}
       <div className={`${styles.titleAlign} mb-8 mt-8`}>
-        <h1 className={`${formatId === 5 ? 'font-black text-3xl' : 'font-bold text-2xl'} uppercase mb-2`}>
+        <h1 className={`${styles.titleClass} uppercase mb-2`}>
           {data.type === 'giay-cong-tac' && 'GIẤY ĐI ĐƯỜNG'}
           {data.type === 'giay-gioi-thieu' && 'GIẤY GIỚI THIỆU'}
           {data.type === 'giay-xac-nhan' && 'GIẤY XÁC NHẬN CÔNG TÁC'}
