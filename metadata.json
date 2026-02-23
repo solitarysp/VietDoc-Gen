@@ -1,0 +1,5 @@
+{
+  "name": "VietDoc Gen",
+  "description": "Công cụ tạo và xuất các loại giấy tờ hành chính, giấy công tác, có hỗ trợ đóng dấu và ký tên.",
+  "requestFramePermissions": []
+}
