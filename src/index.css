@@ -5,3 +5,17 @@
   --font-signature: "Dancing Script", cursive;
   --font-serif: "Times New Roman", serif;
 }
+
+.items-baseline {
+  align-items: flex-start;
+}
+
+.exporting [data-export-preview="true"] {
+  width: 794px;
+  min-height: 1123px;
+  box-sizing: border-box;
+}
+
+.exporting [data-export-wrapper="true"] {
+  transform: none !important;
+}

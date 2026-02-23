@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { DocumentData, initialData, DocumentType } from './types';
 import DocumentPreview from './components/DocumentPreview';
 import html2canvas from 'html2canvas';
@@ -10,22 +10,29 @@ function App() {
   const previewRef = useRef<HTMLDivElement>(null);
   const [isExporting, setIsExporting] = useState(false);
 
+  useEffect(() => {
+    document.body.classList.toggle('exporting', isExporting);
+    return () => {
+      document.body.classList.remove('exporting');
+    };
+  }, [isExporting]);
+
   const capturePreview = async () => {
-    if (!previewRef.current) return null;
+    const target = previewRef.current;
+    if (!target) return null;
     if (document.fonts?.ready) {
       await document.fonts.ready;
     }
-    return html2canvas(previewRef.current, {
+    const width = target.scrollWidth;
+    const height = target.scrollHeight;
+    return html2canvas(target, {
       scale: 2,
       useCORS: true,
       backgroundColor: '#ffffff',
-      onclone: (clonedDoc) => {
-        const clonedPreview = clonedDoc.querySelector('[data-export-preview="true"]') as HTMLElement | null;
-        if (clonedPreview?.parentElement) {
-          clonedPreview.parentElement.style.transform = 'none';
-          clonedPreview.parentElement.style.transformOrigin = 'top left';
-        }
-      }
+      width,
+      height,
+      windowWidth: width,
+      windowHeight: height
     });
   };
 
@@ -48,6 +55,7 @@ function App() {
   const exportToImage = async () => {
     if (!previewRef.current) return;
     setIsExporting(true);
+    await new Promise(requestAnimationFrame);
     try {
       const canvas = await capturePreview();
       if (!canvas) return;
@@ -71,6 +79,7 @@ function App() {
   const exportToPDF = async () => {
     if (!previewRef.current) return;
     setIsExporting(true);
+    await new Promise(requestAnimationFrame);
     try {
       const canvas = await capturePreview();
       if (!canvas) return;
@@ -524,7 +533,10 @@ function App() {
 
         {/* Preview Canvas */}
         <div className="flex-1 p-8 overflow-auto flex justify-center items-start">
-          <div className="transform scale-75 origin-top md:scale-100 transition-transform duration-200">
+          <div
+            data-export-wrapper="true"
+            className="transform scale-75 origin-top md:scale-100 transition-transform duration-200"
+          >
             <DocumentPreview ref={previewRef} data={data} />
           </div>
         </div>

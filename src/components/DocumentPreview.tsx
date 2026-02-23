@@ -425,12 +425,15 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
              <div className="text-center w-1/3 relative">
               <div className="font-bold uppercase mb-4">{data.signerTitle}</div>
               
-              <div className="relative h-48 w-full flex justify-center items-center">
+              <div
+                className="relative w-full flex justify-center items-center"
+                style={{ height: '192px' }}
+              >
                  {/* Signature - Placed first */}
                  {data.showSignature && (
                    <div
-                     className="absolute bottom-12 left-1/2 transform -translate-x-1/2 font-signature text-5xl z-10 whitespace-nowrap"
-                     style={{ transform: 'translate(-50%, 0) rotate(-5deg)', color: '#1e3a8a' }}
+                     className="absolute left-0 right-0 text-center font-signature text-5xl z-10 whitespace-nowrap"
+                     style={{ bottom: '48px', transform: 'rotate(-5deg)', color: '#1e3a8a' }}
                    >
                       {data.signerName.split(' ').pop()}
                    </div>
@@ -439,8 +442,8 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
                  {/* Seal - Overlapping left side of signature */}
                  {data.showSeal && (
                     <div
-                      className="absolute -top-4 left-1/2 transform -translate-x-[65%] opacity-90 mix-blend-multiply z-20 pointer-events-none"
-                      style={{ color: '#dc2626' }}
+                      className="absolute opacity-90 mix-blend-multiply z-20 pointer-events-none"
+                      style={{ color: '#dc2626', top: '-16px', left: '50%', marginLeft: '-110px' }}
                     >
                       <svg width="170" height="170" viewBox="0 0 170 170" className="rotate-[-15deg]">
                         <defs>
@@ -504,12 +507,15 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
              <div className="text-center w-1/2 relative">
               <div className="font-bold uppercase mb-4">{data.signerTitle}</div>
               
-              <div className="relative h-48 w-full flex justify-center items-center">
+              <div
+                className="relative w-full flex justify-center items-center"
+                style={{ height: '192px' }}
+              >
                  {/* Signature */}
                  {data.showSignature && (
                    <div
-                     className="absolute bottom-12 left-1/2 transform -translate-x-1/2 font-signature text-5xl z-10 whitespace-nowrap"
-                     style={{ transform: 'translate(-50%, 0) rotate(-5deg)', color: '#1e3a8a' }}
+                     className="absolute left-0 right-0 text-center font-signature text-5xl z-10 whitespace-nowrap"
+                     style={{ bottom: '48px', transform: 'rotate(-5deg)', color: '#1e3a8a' }}
                    >
                       {data.signerName.split(' ').pop()}
                    </div>
@@ -518,8 +524,8 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
                  {/* Seal */}
                  {data.showSeal && (
                     <div
-                      className="absolute -top-4 left-1/2 transform -translate-x-[65%] opacity-90 mix-blend-multiply z-20 pointer-events-none"
-                      style={{ color: '#dc2626' }}
+                      className="absolute opacity-90 mix-blend-multiply z-20 pointer-events-none"
+                      style={{ color: '#dc2626', top: '-16px', left: '50%', marginLeft: '-110px' }}
                     >
                       <svg width="170" height="170" viewBox="0 0 170 170" className="rotate-[-15deg]">
                         <defs>
@@ -578,11 +584,6 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
             </div>
            </>
         )}
-      </div>
-      
-      {/* Footer Note */}
-      <div className="absolute bottom-12 left-12 text-xs italic" style={{ color: '#9ca3af' }}>
-        * Văn bản được tạo tự động từ hệ thống VietDoc Gen.
       </div>
     </div>
   );
