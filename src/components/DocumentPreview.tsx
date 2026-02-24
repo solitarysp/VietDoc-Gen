@@ -300,6 +300,14 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
               <span className="flex-1 border-b border-dotted border-black pl-2">{data.position}</span>
             </div>
             <div className="flex items-baseline">
+              <span className="min-w-[150px]">Ngày sinh:</span>
+              <span className="flex-1 border-b border-dotted border-black pl-2">{data.birthDate}</span>
+            </div>
+            <div className="flex items-baseline">
+              <span className="min-w-[150px]">Căn cước công dân:</span>
+              <span className="flex-1 border-b border-dotted border-black pl-2">{data.citizenId}</span>
+            </div>
+            <div className="flex items-baseline">
               <span className="min-w-[150px]">Được cử đi công tác tại:</span>
               <span className="flex-1 border-b border-dotted border-black pl-2">{data.destination}</span>
             </div>
@@ -327,11 +335,15 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
               <span className="min-w-[150px]">Chức vụ:</span>
               <span className="flex-1 border-b border-dotted border-black pl-2">{data.position}</span>
             </div>
-             <div className="flex items-baseline">
-              <span className="min-w-[150px]">CMND/CCCD số:</span>
-              <span className="flex-1 border-b border-dotted border-black pl-2">{data.idCard}</span>
+            <div className="flex items-baseline">
+              <span className="min-w-[150px]">Ngày sinh:</span>
+              <span className="flex-1 border-b border-dotted border-black pl-2">{data.birthDate}</span>
             </div>
-             <div className="flex items-baseline">
+            <div className="flex items-baseline">
+              <span className="min-w-[150px]">Căn cước công dân số:</span>
+              <span className="flex-1 border-b border-dotted border-black pl-2">{data.citizenId}</span>
+            </div>
+            <div className="flex items-baseline">
               <span className="min-w-[150px]">Cấp ngày:</span>
               <span className="flex-1 border-b border-dotted border-black pl-2">{data.idDate} tại {data.idPlace}</span>
             </div>
@@ -357,6 +369,14 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
             <div className="flex items-baseline">
               <span className="min-w-[150px]">Chức vụ:</span>
               <span className="flex-1 border-b border-dotted border-black pl-2">{data.position}</span>
+            </div>
+            <div className="flex items-baseline">
+              <span className="min-w-[150px]">Ngày sinh:</span>
+              <span className="flex-1 border-b border-dotted border-black pl-2">{data.birthDate}</span>
+            </div>
+            <div className="flex items-baseline">
+              <span className="min-w-[150px]">Căn cước công dân:</span>
+              <span className="flex-1 border-b border-dotted border-black pl-2">{data.citizenId}</span>
             </div>
             <div className="flex items-baseline">
               <span className="min-w-[150px]">Đơn vị công tác:</span>
@@ -387,6 +407,14 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
               <span className="flex-1 border-b border-dotted border-black pl-2">{data.position}</span>
             </div>
             <div className="flex items-baseline">
+              <span className="min-w-[150px]">Ngày sinh:</span>
+              <span className="flex-1 border-b border-dotted border-black pl-2">{data.birthDate}</span>
+            </div>
+            <div className="flex items-baseline">
+              <span className="min-w-[150px]">Căn cước công dân:</span>
+              <span className="flex-1 border-b border-dotted border-black pl-2">{data.citizenId}</span>
+            </div>
+            <div className="flex items-baseline">
               <span className="min-w-[150px]">Bộ phận:</span>
               <span className="flex-1 border-b border-dotted border-black pl-2">{data.department}</span>
             </div>
@@ -413,6 +441,14 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
             <div className="flex items-baseline">
               <span className="min-w-[150px]">Chức vụ:</span>
               <span className="flex-1 border-b border-dotted border-black pl-2">{data.position}</span>
+            </div>
+            <div className="flex items-baseline">
+              <span className="min-w-[150px]">Ngày sinh:</span>
+              <span className="flex-1 border-b border-dotted border-black pl-2">{data.birthDate}</span>
+            </div>
+            <div className="flex items-baseline">
+              <span className="min-w-[150px]">Căn cước công dân:</span>
+              <span className="flex-1 border-b border-dotted border-black pl-2">{data.citizenId}</span>
             </div>
             <div className="flex items-baseline">
               <span className="min-w-[150px]">Bộ phận:</span>
@@ -445,6 +481,14 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
             <div className="flex items-baseline">
               <span className="min-w-[150px]">Chức vụ:</span>
               <span className="flex-1 border-b border-dotted border-black pl-2">{data.position}</span>
+            </div>
+            <div className="flex items-baseline">
+              <span className="min-w-[150px]">Ngày sinh:</span>
+              <span className="flex-1 border-b border-dotted border-black pl-2">{data.birthDate}</span>
+            </div>
+            <div className="flex items-baseline">
+              <span className="min-w-[150px]">Căn cước công dân:</span>
+              <span className="flex-1 border-b border-dotted border-black pl-2">{data.citizenId}</span>
             </div>
             <div className="flex items-baseline">
               <span className="min-w-[150px]">Bộ phận:</span>
@@ -481,6 +525,14 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
               <span className="flex-1 border-b border-dotted border-black pl-2">{data.position}</span>
             </div>
             <div className="flex items-baseline">
+              <span className="min-w-[150px]">Ngày sinh:</span>
+              <span className="flex-1 border-b border-dotted border-black pl-2">{data.birthDate}</span>
+            </div>
+            <div className="flex items-baseline">
+              <span className="min-w-[150px]">Căn cước công dân:</span>
+              <span className="flex-1 border-b border-dotted border-black pl-2">{data.citizenId}</span>
+            </div>
+            <div className="flex items-baseline">
               <span className="min-w-[150px]">Bộ phận:</span>
               <span className="flex-1 border-b border-dotted border-black pl-2">{data.department}</span>
             </div>
@@ -514,6 +566,14 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
             <div className="flex items-baseline">
               <span className="min-w-[150px]">Chức vụ:</span>
               <span className="flex-1 border-b border-dotted border-black pl-2">{data.position}</span>
+            </div>
+            <div className="flex items-baseline">
+              <span className="min-w-[150px]">Ngày sinh:</span>
+              <span className="flex-1 border-b border-dotted border-black pl-2">{data.birthDate}</span>
+            </div>
+            <div className="flex items-baseline">
+              <span className="min-w-[150px]">Căn cước công dân:</span>
+              <span className="flex-1 border-b border-dotted border-black pl-2">{data.citizenId}</span>
             </div>
             <div className="flex items-baseline">
               <span className="min-w-[150px]">Bộ phận:</span>
@@ -554,6 +614,14 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
             <div className="flex items-baseline">
               <span className="min-w-[150px]">Chức vụ:</span>
               <span className="flex-1 border-b border-dotted border-black pl-2">{data.position}</span>
+            </div>
+            <div className="flex items-baseline">
+              <span className="min-w-[150px]">Ngày sinh:</span>
+              <span className="flex-1 border-b border-dotted border-black pl-2">{data.birthDate}</span>
+            </div>
+            <div className="flex items-baseline">
+              <span className="min-w-[150px]">Căn cước công dân:</span>
+              <span className="flex-1 border-b border-dotted border-black pl-2">{data.citizenId}</span>
             </div>
             <div className="flex items-baseline">
               <span className="min-w-[150px]">Bộ phận:</span>
@@ -601,7 +669,7 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
                  {/* Signature - Placed first */}
                  {data.showSignature && (
                    <div
-                     className="absolute left-0 right-0 text-center font-signature text-5xl z-10 whitespace-nowrap"
+                     className="absolute left-0 right-0 text-center font-signature text-4xl font-normal z-10 whitespace-nowrap"
                      style={{ bottom: '48px', transform: 'rotate(-5deg)', color: '#1e3a8a' }}
                    >
                       {data.signerName.split(' ').pop()}
@@ -683,7 +751,7 @@ const DocumentPreview = forwardRef<HTMLDivElement, DocumentPreviewProps>(({ data
                  {/* Signature */}
                  {data.showSignature && (
                    <div
-                     className="absolute left-0 right-0 text-center font-signature text-5xl z-10 whitespace-nowrap"
+                     className="absolute left-0 right-0 text-center font-signature text-4xl font-normal z-10 whitespace-nowrap"
                      style={{ bottom: '48px', transform: 'rotate(-5deg)', color: '#1e3a8a' }}
                    >
                       {data.signerName.split(' ').pop()}

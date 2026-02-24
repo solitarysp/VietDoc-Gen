@@ -21,7 +21,8 @@ export interface DocumentData {
   // Personal Info
   fullName: string;
   position: string;
-  idCard: string;
+  birthDate: string;
+  citizenId: string;
   idDate: string;
   idPlace: string;
   
@@ -61,7 +62,8 @@ export const initialData: DocumentData = {
   taxCode: '0101234567',
   fullName: 'Nguyễn Văn A',
   position: 'Nhân viên kỹ thuật',
-  idCard: '0123456789',
+  birthDate: '01/01/1990',
+  citizenId: '012345678901',
   idDate: '01/01/2020',
   idPlace: 'Cục Cảnh sát QLHC về TTXH',
   reason: 'Tham gia triển khai dự án phần mềm quản lý kho',

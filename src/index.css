@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Times+New+Roman&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Dancing+Script:wght@700&family=Great+Vibes&family=Times+New+Roman&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-signature: "Dancing Script", cursive;
+  --font-signature: "Allura", "Great Vibes", "Dancing Script", cursive;
   --font-serif: "Times New Roman", serif;
 }
 
