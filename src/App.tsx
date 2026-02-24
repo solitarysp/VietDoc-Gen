@@ -3,10 +3,61 @@ import { DocumentData, initialData, DocumentType } from './types';
 import DocumentPreview from './components/DocumentPreview';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { Download, FileText, Image as ImageIcon, Printer, RefreshCw } from 'lucide-react';
+import { Download, FileText, Image as ImageIcon, RefreshCw } from 'lucide-react';
+
+const HISTORY_STORAGE_KEY = 'vietdoc-history';
+const HISTORY_LIMIT = 15;
+
+type HistoryEntry = {
+  id: string;
+  savedAt: string;
+  data: DocumentData;
+};
+
+type HistoryEntryStorage = {
+  id: string;
+  savedAt: string;
+  data: Omit<DocumentData, 'date'> & { date: string };
+};
+
+const documentTypeLabels: Record<DocumentType, string> = {
+  'giay-cong-tac': 'Giấy đi đường',
+  'giay-gioi-thieu': 'Giấy giới thiệu',
+  'giay-xac-nhan': 'Giấy xác nhận',
+  'giay-nghi-phep': 'Giấy nghỉ phép',
+  'giay-de-nghi-tam-ung': 'Giấy đề nghị tạm ứng',
+  'giay-de-nghi-thanh-toan': 'Giấy đề nghị thanh toán',
+  'bien-ban-ban-giao': 'Biên bản bàn giao',
+  'giay-cu-di-cong-tac': 'Quyết định cử đi công tác',
+  'giay-yeu-cau-truc': 'Giấy yêu cầu trực'
+};
+
+const createHistoryId = () => {
+  if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
+    return crypto.randomUUID();
+  }
+  return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+};
+
+const toStorageEntry = (entry: HistoryEntry): HistoryEntryStorage => ({
+  ...entry,
+  data: {
+    ...entry.data,
+    date: entry.data.date.toISOString()
+  }
+});
+
+const fromStorageEntry = (entry: HistoryEntryStorage): HistoryEntry => ({
+  ...entry,
+  data: {
+    ...entry.data,
+    date: new Date(entry.data.date)
+  }
+});
 
 function App() {
   const [data, setData] = useState<DocumentData>(initialData);
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
   const previewRef = useRef<HTMLDivElement>(null);
   const [isExporting, setIsExporting] = useState(false);
 
@@ -16,6 +67,17 @@ function App() {
       document.body.classList.remove('exporting');
     };
   }, [isExporting]);
+
+  useEffect(() => {
+    const rawHistory = localStorage.getItem(HISTORY_STORAGE_KEY);
+    if (!rawHistory) return;
+    try {
+      const parsed = JSON.parse(rawHistory) as HistoryEntryStorage[];
+      setHistory(parsed.map(fromStorageEntry));
+    } catch (error) {
+      console.error('Không thể tải lịch sử', error);
+    }
+  }, []);
 
   const capturePreview = async () => {
     const target = previewRef.current;
@@ -50,6 +112,45 @@ function App() {
 
   const handleTypeChange = (type: DocumentType) => {
     setData(prev => ({ ...prev, type }));
+  };
+
+  const persistHistory = (entries: HistoryEntry[]) => {
+    localStorage.setItem(
+      HISTORY_STORAGE_KEY,
+      JSON.stringify(entries.map(toStorageEntry))
+    );
+  };
+
+  const saveToHistory = () => {
+    const entry: HistoryEntry = {
+      id: createHistoryId(),
+      savedAt: new Date().toISOString(),
+      data: {
+        ...data,
+        date: new Date(data.date)
+      }
+    };
+
+    setHistory(prev => {
+      const next = [entry, ...prev].slice(0, HISTORY_LIMIT);
+      persistHistory(next);
+      return next;
+    });
+  };
+
+  const loadFromHistory = (entry: HistoryEntry) => {
+    setData({
+      ...entry.data,
+      date: new Date(entry.data.date)
+    });
+  };
+
+  const deleteHistoryEntry = (id: string) => {
+    setHistory(prev => {
+      const next = prev.filter(entry => entry.id !== id);
+      persistHistory(next);
+      return next;
+    });
   };
 
   const exportToImage = async () => {
@@ -507,6 +608,57 @@ function App() {
                   <label htmlFor="showSignature" className="text-sm text-gray-700 font-medium">Ký tên</label>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <hr className="border-gray-200" />
+
+          {/* History */}
+          <div className="space-y-4">
+            <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+              <span className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center text-xs border border-gray-300">5</span>
+              Lịch sử
+            </h3>
+            <div className="space-y-3">
+              <button
+                type="button"
+                onClick={saveToHistory}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                Lưu vào lịch sử
+              </button>
+              {history.length === 0 ? (
+                <div className="text-xs text-gray-500">Chưa có lịch sử lưu.</div>
+              ) : (
+                <div className="space-y-2">
+                  {history.map(entry => (
+                    <div key={entry.id} className="border border-gray-200 rounded-md p-3 bg-white">
+                      <div className="text-sm font-semibold text-gray-800">
+                        {documentTypeLabels[entry.data.type]}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {entry.data.fullName} • {new Date(entry.savedAt).toLocaleString('vi-VN')}
+                      </div>
+                      <div className="mt-2 flex gap-2">
+                        <button
+                          type="button"
+                          onClick={() => loadFromHistory(entry)}
+                          className="px-2 py-1 text-xs rounded-md border border-blue-500 text-blue-600 hover:bg-blue-50"
+                        >
+                          Xem lại
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => deleteHistoryEntry(entry.id)}
+                          className="px-2 py-1 text-xs rounded-md border border-gray-300 text-gray-600 hover:bg-gray-50"
+                        >
+                          Xóa
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
           
